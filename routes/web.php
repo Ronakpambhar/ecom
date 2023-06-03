@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,3 +32,6 @@ Route::get('/addproduct',function() {
 Route::get('/viewproduct',function() {
     return view('admin/view-product');
 });
+Route::get('/categories',[CategoryController::class,'GetCat'])->name('categories'); 
+Route::post('addcategory',[CategoryController::class,'AddCategory'])->name('addcategory'); 
+Route::get('delcat',[CategoryController::class,'DelCat'])->name('delcat');

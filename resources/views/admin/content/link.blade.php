@@ -38,14 +38,14 @@
     <!--This page JavaScript -->
     <!-- <script src="../dist/js/pages/dashboards/dashboard1.js"></script> -->
     <!-- Charts js Files -->
-    <script src="{{ asset('assets/libs/flot/excanvas.js') }}"></script>
-    <script src="{{ asset('assets/libs/flot/jquery.flot.js') }}"></script>
-    <script src="{{ asset('assets/libs/flot/jquery.flot.pie.js') }}"></script>
-    <script src="{{ asset('assets/libs/flot/jquery.flot.time.js') }}"></script>
-    <script src="{{ asset('assets/libs/flot/jquery.flot.stack.js') }}"></script>
-    <script src="{{ asset('assets/libs/flot/jquery.flot.crosshair.js') }}"></script>
-    <script src="{{ asset('assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/chart/chart-page-init.js') }}"></script>
+    <!-- <script src="{{ asset('assets/libs/flot/excanvas.js') }}"></script> -->
+    <!-- <script src="{{ asset('assets/libs/flot/jquery.flot.js') }}"></script> -->
+    <!-- <script src="{{ asset('assets/libs/flot/jquery.flot.pie.js') }}"></script> -->
+    <!-- <script src="{{ asset('assets/libs/flot/jquery.flot.time.js') }}"></script> -->
+    <!-- <script src="{{ asset('assets/libs/flot/jquery.flot.stack.js') }}"></script> -->
+    <!-- <script src="{{ asset('assets/libs/flot/jquery.flot.crosshair.js') }}"></script> -->
+    <!-- <script src="{{ asset('assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script> -->
+    <!-- <script src="{{ asset('dist/js/pages/chart/chart-page-init.js') }}"></script> -->
 @yield('linkjs')
 <script>
      $(".preloader").fadeOut();

@@ -25,3 +25,9 @@ Route::get('/subcategries', function () {
 Route::get('/layout', function () {
     return view('admin.content.layout');
 });
+Route::get('/addproduct',function() {
+    return view('admin/add-product');
+});
+Route::get('/viewproduct',function() {
+    return view('admin/view-product');
+});

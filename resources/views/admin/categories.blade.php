@@ -20,28 +20,11 @@
         <!-- Sales Cards  -->
         <!-- ============================================================== -->
         <div class="row">
-            <!-- <div class="card">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="fw-bold">Id</th>
-                                    <th class="fw-bold">Categories</th>
-                                    <th class="fw-bold">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div> -->
-            <div class="card">
+            <!-- <form action="">
+                <label >Enter categorie</label>
+                <input type="text" class="form-control" placeholder="Enter categorie name">
+            </form> -->
+            <div cass="card">
                 <div class="card-body">
                     <h5 class="card-title">Basic Datatable</h5>
                     <div class="table-responsive">

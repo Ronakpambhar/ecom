@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center justify-content-between">
                 <h4 class="page-title">Categories</h4>
-                <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addcat">Add Categories</a>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addcat">Add Categories</button>
             </div>
         </div>
     </div>
@@ -43,8 +43,10 @@
                                     <td>{{$data->id}}</td>
                                     <td>{{$data->category_name}}</td>
                                     <td>
-                                        <a href="" class="btn btn-info px-2 py-1"><i
-                                                class="mdi mdi-grease-pencil"></i></a>
+                                        <button class="btn btn-info px-2 py-1 editbtn" data-bs-toggle="modal" data-bs-target="#editcat" value="{{ $data->id }}"><i
+                                                class="mdi mdi-grease-pencil"></i></button>
+                                        <!-- <button class="btn btn-info px-2 py-1 edite" data-bs-toggle="modal" data-bs-target="#editcat"><i
+                                                class="mdi mdi-grease-pencil"></i></button> -->
                                         <button data-id="{{$data->id}}" class="btn btn-danger px-2 py-1 delcat"><i class="mdi mdi-delete"></i></button>
                                     </td>
                                 </tr>
@@ -63,13 +65,38 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addcatLabel">Modal title</h5>
+                        <h5 class="modal-title" id="addcatLabel">Enter Category
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         {{ csrf_field() }}
                         <label>Enter categorie</label>
                         <input type="text" class="form-control" name="categories" placeholder="Enter categorie name">
+                        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form method="POST" action="{{route('updatecat')}}" id="editeform">
+        {{csrf_field()}}
+        <!-- {{method_field('PUT')}} -->
+        <div class="modal fade" id="editcat" tabindex="-1" aria-labelledby="editcat" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addcatLabel">Edite Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label>Edite categorie</label>
+                        <input type="hidden" class="form-control" id="id" name="categories">
+                        <input type="text" class="form-control" id="catname" name="categories" placeholder="Enter categorie name">
                         <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                     </div>
                     <div class="modal-footer">
@@ -87,7 +114,22 @@
     <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
     <script src="{{asset('dist/js/sweetalert2@11.js')}}"></script>
     <script>
-        $("#cattbl").DataTable();
+     $(document).ready(function(){
+         $(document).on('click','.editbtn',function(){
+            var cat_id = $(this).val();
+            $.ajax({
+               type:"GET",
+               url:"edite/"+cat_id,
+               success:function(response){
+                  $('#id').val(response.bookdata.id);
+                  $('#catname').val(response.bookdata.category_name);
+                }
+            });
+         });
+      });
+
+
+
         $(document).on('click', '.delcat', function (e) {
     e.preventDefault();
     var id = $(this).data('id');

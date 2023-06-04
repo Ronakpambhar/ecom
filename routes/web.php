@@ -35,3 +35,5 @@ Route::get('/viewproduct',function() {
 Route::get('/categories',[CategoryController::class,'GetCat'])->name('categories'); 
 Route::post('addcategory',[CategoryController::class,'AddCategory'])->name('addcategory'); 
 Route::get('delcat',[CategoryController::class,'DelCat'])->name('delcat');
+Route::get('edite/{id}',[CategoryController::class,'EditeCat']);
+Route::post('updatecat',[CategoryController::class,'Updatecat'])->name('updatecat');

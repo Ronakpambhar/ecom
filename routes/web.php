@@ -37,3 +37,5 @@ Route::post('addcategory',[CategoryController::class,'AddCategory'])->name('addc
 Route::get('delcat',[CategoryController::class,'DelCat'])->name('delcat');
 Route::get('edite/{id}',[CategoryController::class,'EditeCat']);
 Route::put('updatecat',[CategoryController::class,'Updatecat'])->name('updatecat');
+
+// SUB CAT

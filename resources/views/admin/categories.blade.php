@@ -43,7 +43,7 @@
                                     <td>{{$data->id}}</td>
                                     <td>{{$data->category_name}}</td>
                                     <td>
-                                        <button class="btn btn-info px-2 py-1 editbtn" data-bs-toggle="modal" data-bs-target="#editcat" value="{{ $data->id }}"><i
+                                        <button class="btn btn-info px-2 py-1 editbtn" value="{{ $data->id }}"><i
                                                 class="mdi mdi-grease-pencil"></i></button>
                                         <!-- <button class="btn btn-info px-2 py-1 edite" data-bs-toggle="modal" data-bs-target="#editcat"><i
                                                 class="mdi mdi-grease-pencil"></i></button> -->
@@ -70,7 +70,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        {{ csrf_field() }}
+                        @csrf
                         <label>Enter categorie</label>
                         <input type="text" class="form-control" name="categories" placeholder="Enter categorie name">
                         <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
@@ -84,7 +84,8 @@
         </div>
     </form>
     <form method="POST" action="{{route('updatecat')}}" id="editeform">
-        {{csrf_field()}}
+        @csrf
+        @method('PUT')
         <!-- {{method_field('PUT')}} -->
         <div class="modal fade" id="editcat" tabindex="-1" aria-labelledby="editcat" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -95,8 +96,8 @@
                     </div>
                     <div class="modal-body">
                         <label>Edite categorie</label>
-                        <input type="hidden" class="form-control" id="id" name="categories">
-                        <input type="text" class="form-control" id="catname" name="categories" placeholder="Enter categorie name">
+                        <input type="hidden" class="form-control" id="cat_id" name="cat_id">
+                        <input type="text" class="form-control" id="catname" name="catname" value="" placeholder="Enter categorie name">
                         <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                     </div>
                     <div class="modal-footer">
@@ -117,11 +118,12 @@
      $(document).ready(function(){
          $(document).on('click','.editbtn',function(){
             var cat_id = $(this).val();
+            $('#editcat').modal('show')
             $.ajax({
                type:"GET",
-               url:"edite/"+cat_id,
+               url:"/edite/"+cat_id,
                success:function(response){
-                  $('#id').val(response.bookdata.id);
+                  $('#cat_id').val(cat_id);
                   $('#catname').val(response.bookdata.category_name);
                 }
             });

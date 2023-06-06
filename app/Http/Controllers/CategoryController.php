@@ -35,36 +35,21 @@ class CategoryController extends Controller
         }
     }
     public function EditeCat($id){
-        $bookData = categories::find($id);
+        $cat = categories::find($id);
         return response()->json([
            'status' =>200,
-           'bookdata' =>$bookData,
+           'bookdata' =>$cat,
        ]);
    }
    public function Updatecat(Request $request)
    {
-    $request->validate([
-        'categories'=> 'required|min:4',
-    ],
-    [
-        'categories.required' => 'Category must be required.',
-        'categories.min' => 'Minimum 4 character allowed.',
-    ]);
-    if(isset($request->id)){    
-        $categories = categories::find($request->id);
-        $categories->category_name = $request->categories;
+        $cat_id = $request->input('cat_id');
+        $categories = categories::find($cat_id);
+        $categories->category_name = $request->input('catname');
         if($categories->update())
         {
             return redirect('categories');
         }
-    
-    }
-    else
-    {
-        return redirect('categories');
-
-    }   
-
    }
 
 }

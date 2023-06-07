@@ -11,5 +11,6 @@ class SubcategoriesController extends Controller
         $cat = Categories::get();
         $subcat = Subcategories::get();
         return view('admin.subcategries')->with('categories',$cat)->with('subcategories', $subcat);
+        
     }
 }

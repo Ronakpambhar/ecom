@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubcategoriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,9 +21,9 @@ Route::get('/', function () {
 Route::get('/categories', function () {
     return view('admin.categories');
 });
-Route::get('/subcategries', function () {
-    return view('admin.subcategries');
-});
+// Route::get('/subcategries', function () {
+//     return view('admin.subcategries');
+// });
 Route::get('/layout', function () {
     return view('admin.content.layout');
 });
@@ -36,6 +37,6 @@ Route::get('/categories',[CategoryController::class,'GetCat'])->name('categories
 Route::post('addcategory',[CategoryController::class,'AddCategory'])->name('addcategory'); 
 Route::get('delcat',[CategoryController::class,'DelCat'])->name('delcat');
 Route::get('edite/{id}',[CategoryController::class,'EditeCat']);
-Route::put('updatecat',[CategoryController::class,'Updatecat'])->name('updatecat');
-
+Route::post('updatecat',[CategoryController::class,'Updatecat'])->name('updatecat');
 // SUB CAT
+Route::get('/subcategries',[SubcategoriesController::class,'GetSubCat'])->name('subcategries'); 

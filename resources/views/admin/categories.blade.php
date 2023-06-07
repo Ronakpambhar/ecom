@@ -85,7 +85,6 @@
     </form>
     <form method="POST" action="{{route('updatecat')}}" id="editeform">
         @csrf
-        @method('PUT')
         <!-- {{method_field('PUT')}} -->
         <div class="modal fade" id="editcat" tabindex="-1" aria-labelledby="editcat" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">

@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Categories extends Model
+class subcategories extends Model
 {
     use HasFactory;
-    protected $table = "categories";
+    protected $table = "subcategories";
 
     public function gettest(){
 
-        return categories::get();
+        return subcategories::get();
     }
 }

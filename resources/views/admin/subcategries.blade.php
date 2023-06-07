@@ -1,9 +1,9 @@
 @extends('admin.content.layout')
 @section('linkcss')
-<link rel="stylesheet" type="text/css" href="{{asset('assets/extra-libs/multicheck/multicheck.css')}}" />
+<!-- <link rel="stylesheet" type="text/css" href="{{asset('assets/extra-libs/multicheck/multicheck.css')}}" /> -->
 <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
-<link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet" />
+<!-- <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet" /> -->
 @endsection
 @section('pagesection')
 <div class="page-wrapper">
@@ -36,12 +36,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if(isset($subcat))
                                 <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
+                                    <td>{{$subcat->id}}</td>
+                                    <td>{{$subcat->cat_name}}</td>
+                                    <td>{{$subcat->subcategory_name}}</td>
                                     <td>1</td>
                                 </tr>
+                                @endif
                                 </tfoot>
                         </table>
                     </div>
@@ -80,9 +82,9 @@
     </form>
 @endsection
 @section('linkjs')
-    <script src="{{asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
-    <script src="{{asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
-    <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
+    <!-- <script src="{{asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script> -->
+    <!-- <script src="{{asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script> -->
+    <!-- <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script> -->
     <script>
         $("#zero_config").DataTable();
 $(document).ready(function() {

@@ -23,7 +23,7 @@
         <div class="row">
             <div cass="card">
                 <div class="card-body">
-                    <h5 class="card-title">Basic Datatable</h5>
+                    <h5 class="card-title">Categories</h5>
                     <div class="table-responsive">
                         <table id="cattbl" class="table table-striped table-bordered">
                             <thead>
@@ -114,6 +114,7 @@
     <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
     <script src="{{asset('dist/js/sweetalert2@11.js')}}"></script>
     <script>
+    $("#cattbl").DataTable();
      $(document).ready(function(){
          $(document).on('click','.editbtn',function(){
             var cat_id = $(this).val();

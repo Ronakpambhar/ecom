@@ -8,7 +8,7 @@ use App\Models\Categories;
 class CategoryController extends Controller
 {
     public function GetCat(){
-        $categories = categories::all();
+        $categories = categories::get();
         return view('admin.categories')->with('categories', $categories);
     }
     public function AddCategory(Request $request){

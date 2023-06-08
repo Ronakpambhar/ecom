@@ -1,9 +1,8 @@
 @extends('admin.content.layout')
 @section('linkcss')
-<!-- <link rel="stylesheet" type="text/css" href="{{asset('assets/extra-libs/multicheck/multicheck.css')}}" /> -->
-<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
-<!-- <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet" /> -->
+<link rel="stylesheet" type="text/css" href="{{asset('assets/extra-libs/multicheck/multicheck.css')}}" />
+<link href="{{asset('assets/libs/select2/dist/css/select2.min.css')}}" rel="stylesheet" />
+<link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet" />
 @endsection
 @section('pagesection')
 <div class="page-wrapper">
@@ -36,13 +35,16 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $counter=1; ?>
                                 @if(isset($subcat))
+                                @foreach($subcat as $sublist)
                                 <tr>
-                                    <td>{{$subcat->id}}</td>
-                                    <td>{{$subcat->cat_name}}</td>
-                                    <td>{{$subcat->subcategory_name}}</td>
-                                    <td>1</td>
+                                    <td>{{$counter++}}</td>
+                                    <td>{{$sublist->id}}</td>
+                                    <td>{{$sublist->cat_name}}</td>
+                                    <td>{{$sublist->subcategory_name}}</td>
                                 </tr>
+                                @endforeach
                                 @endif
                                 </tfoot>
                         </table>
@@ -52,7 +54,7 @@
         </div>
     </div>
 </div>
-<form method="POST" action="">
+<form method="POST" action="{{route('addsubcat')}}">
     <div class="modal fade" id="addsubcat" tabindex="-1" aria-labelledby="addsubcat" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -64,11 +66,15 @@
                     <div class="modal-body">
                         @csrf
                         <label>Enter subcategorie</label>
-                        <input type="text" class="form-control mb-3" name="subcat" placeholder="Enter subcategorie name">
+                        <input type="text" class="form-control mb-3" name="subname" placeholder="Enter subcategorie name">
                         <label>Select categorie</label>
-                        <select class="form-control js-example-basic-single" name="state">
-                            <option value="0"></option>
-                            <option value="AL">Alabama</option>
+                        <select class="form-select shadow-none" name="catname">
+                            <option value="0">Select</option>
+                            @if(isset($categories))
+                            @foreach($categories as $cate)
+                            <option value="{{$cate->id}}">{{$cate->category_name}}</option>
+                            @endforeach
+                            @endif
                         </select>
                         <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                     </div>
@@ -82,9 +88,10 @@
     </form>
 @endsection
 @section('linkjs')
-    <!-- <script src="{{asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script> -->
-    <!-- <script src="{{asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script> -->
-    <!-- <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script> -->
+<script src="{{asset('assets/libs/select2/dist/js/select2.min.js')}}"></script>
+    <script src="{{asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
+    <script src="{{asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
+    <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
     <script>
         $("#zero_config").DataTable();
 $(document).ready(function() {

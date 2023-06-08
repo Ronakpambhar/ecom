@@ -8,9 +8,15 @@ use App\Models\Subcategories;
 class SubcategoriesController extends Controller
 {
     public function GetSubCat(){
-        $cat = Categories::get();
-        $subcat = Subcategories::get();
-        return view('admin.subcategries')->with('categories',$cat)->with('subcategories', $subcat);
+        $subcat = Subcategories::getSubcategories();
+        return view('admin.subcategries')->with('subcat',$subcat);
+    }
+    public function AddSub(Request $request){
+        $add = new Subcategories();
+        $add->subcategory_name = $request->subname;
+        $add->cat_name = $request->catname;
+        if($add->save())
+            return redirect('subcategries');
         
     }
 }

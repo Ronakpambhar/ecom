@@ -40,3 +40,4 @@ Route::get('edite/{id}',[CategoryController::class,'EditeCat']);
 Route::post('updatecat',[CategoryController::class,'Updatecat'])->name('updatecat');
 // SUB CAT
 Route::get('/subcategries',[SubcategoriesController::class,'GetSubCat'])->name('subcategries'); 
+Route::post('addsubcat',[SubcategoriesController::class,'AddSub'])->name('addsubcat');

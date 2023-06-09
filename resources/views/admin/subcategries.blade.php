@@ -28,6 +28,7 @@
                         <table id="zero_config" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
+                                    <th class="fw-bold">Sr No</th>
                                     <th class="fw-bold">Id</th>
                                     <th class="fw-bold">Categories</th>
                                     <th class="fw-bold">Sub Categories</th>
@@ -41,7 +42,7 @@
                                 <tr>
                                     <td>{{$counter++}}</td>
                                     <td>{{$sublist->id}}</td>
-                                    <td>{{$sublist->cat_name}}</td>
+                                    <td>{{$sublist->category_name}}</td>
                                     <td>{{$sublist->subcategory_name}}</td>
                                 </tr>
                                 @endforeach

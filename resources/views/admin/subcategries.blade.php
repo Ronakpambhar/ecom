@@ -2,6 +2,7 @@
 @section('linkcss')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/extra-libs/multicheck/multicheck.css')}}" />
 <link href="{{asset('assets/libs/select2/dist/css/select2.min.css')}}" rel="stylesheet" />
+<link rel="stylesheet" href="{{asset('dist/css/sweetalert2.min.css')}}">
 <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet" />
 @endsection
 @section('pagesection')
@@ -41,9 +42,15 @@
                                 @foreach($subcat as $sublist)
                                 <tr>
                                     <td>{{$counter++}}</td>
-                                    <td>{{$sublist->id}}</td>
+                                    <td>{{$sublist->subcategory_id}}</td>
                                     <td>{{$sublist->category_name}}</td>
                                     <td>{{$sublist->subcategory_name}}</td>
+                                    <td>
+                                    <button class="btn btn-info px-2 py-1 editbtn" value="{{ $sublist->subcategory_id }}"><i
+                                                class="mdi mdi-grease-pencil"></i></button>
+                                        <button data-id="{{$sublist->subcategory_id}}" class="btn btn-danger px-2 py-1 delsubcat"><i
+                                                class="mdi mdi-delete"></i></button>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 @endif
@@ -55,52 +62,163 @@
         </div>
     </div>
 </div>
-<form method="POST" action="{{route('addsubcat')}}">
+<form method="POST" action="{{route('addsubcat')}}" class="subcatform">
     <div class="modal fade" id="addsubcat" tabindex="-1" aria-labelledby="addsubcat" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addcatLabel">Enter SubCategory
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        @csrf
-                        <label>Enter subcategorie</label>
-                        <input type="text" class="form-control mb-3" name="subname" placeholder="Enter subcategorie name">
-                        <label>Select categorie</label>
-                        <select class="form-select shadow-none" name="catname">
-                            <option value="0">Select</option>
-                            @if(isset($categories))
-                            @foreach($categories as $cate)
-                            <option value="{{$cate->id}}">{{$cate->category_name}}</option>
-                            @endforeach
-                            @endif
-                        </select>
-                        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addcatLabel">Enter SubCategory</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                    <label>Enter subcategorie</label>
+                    <input type="text" class="form-control mb-3" id="subcatname" name="subname" placeholder="Enter subcategorie name">
+                    <label>Select categorie</label>
+                    <select class="form-select shadow-none" name="catname" id="catname">
+                        <option value="0">Select</option>
+                        @if(isset($categories))
+                        @foreach($categories as $cate)
+                        <option value="{{$cate->id}}">{{$cate->category_name}}</option>
+                        @endforeach
+                        @endif
+                    </select>
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+</form>
+
+<form method="POST" action="" class="subcatform">
+    @csrf
+    <div class="modal fade" id="editsubcat" tabindex="-1" aria-labelledby="editsubcat" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addcatLabel">Enter SubCategory</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                    <input type="text" id="cat_id">
+                    <label>Enter subcategorie</label>
+                    <input type="text" class="form-control mb-3" id="subcat_name" name="subcatname" value="" placeholder="Enter subcategorie name">
+                    <label>Select categorie</label>
+                    <select class="form-select shadow-none" name="catname" id="cat_name">
+                        <option value="0">Select</option>
+                        @if(isset($categories))
+                        @foreach($categories as $cate)
+                        <option value="{{$cate->id}}">{{$cate->category_name}}</option>
+
+                        @endforeach
+                        @endif
+                    </select>
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 @endsection
 @section('linkjs')
 <script src="{{asset('assets/libs/select2/dist/js/select2.min.js')}}"></script>
-    <script src="{{asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
-    <script src="{{asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
-    <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
-    <script>
-        $("#zero_config").DataTable();
-$(document).ready(function() {
-    $('.js-example-basic-single').select2({
-        placeholder: "Select SubCategory",
-        allowClear: true,
-        dropdownParent: $('#addsubcat')
+<script src="{{asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
+<script src="{{asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
+<script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
+<script src="{{asset('dist/js/sweetalert2@11.js')}}"></script>
+<script src="{{asset('dist/js/jquery.validate.js')}}"></script>
+<script src="{{asset('dist/js/jquery-3.6.4.min.js')}}"></script>
+
+<script>
+        $(document).ready(function(){
+         $(document).on('click','.editbtn',function(){
+            var id = $(this).val();
+            $('#editsubcat').modal('show')
+            $.ajax({
+               type:"GET",
+               url:"/edit/"+id,
+               success:function(response){
+                    $('#cat_id').val(response.subcat[0].subcategory_id);
+                    $('#sub_catname').val(response.subcat[0].subcategory_name);
+                    $('#cat_name').val(response.subcat[0].category_name).attr("selected", "selected");
+                    // $('#catname').val(response.bookdata.category_name);
+                    console.log(response.subcat[0]);
+                }
+            });
+        });
+    });
+    $("#zero_config").DataTable();
+    // $(".subcatform").validate({
+    //     rules: {
+    //         subcatname: {
+    //             required: true,
+    //         },
+    //         catname: {
+    //             required: true,
+    //         },
+    //     },
+    //     messages: {
+    //         subcatname: {
+    //             required: "Name must be required.",
+    //         },
+    //         catname:{
+    //             required: "Category must be required.",
+    //         }
+    //     },
+    // });
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2({
+            placeholder: "Select SubCategory",
+            allowClear: true,
+            dropdownParent: $('#addsubcat')
+        });
+    });
+    $(document).on('click', '.delsubcat', function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    // alert( id );
+    Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+    if (result.isConfirmed) {
+
+        $.ajax({
+                url: "{{ route('delsubcat') }}",
+                type: 'GET',
+                data: {
+                id: id,
+            },
+            success: function (result){
+               
+                if((typeof result.status != 'undefined') && result.status == 'success'){
+                    Swal.fire({
+                    title: "Deleted!",
+                    text: "You have successfully deleted!",
+                    icon: "success",
+                    button: "Yes!",
+                    });
+                }
+                 window.setTimeout(function(){location.reload()},2000)
+                //  location.reload();
+            }
+        });
+    }
     });
 });
-    </script>
+</script>
 @endsection

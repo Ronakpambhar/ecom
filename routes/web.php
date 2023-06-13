@@ -41,3 +41,5 @@ Route::post('updatecat',[CategoryController::class,'Updatecat'])->name('updateca
 // SUB CAT
 Route::get('/subcategries',[SubcategoriesController::class,'GetSubCat'])->name('subcategries'); 
 Route::post('addsubcat',[SubcategoriesController::class,'AddSub'])->name('addsubcat');
+Route::get('delsubcat',[SubcategoriesController::class,'DelSubCat'])->name('delsubcat');
+Route::get('edit/{id}',[SubcategoriesController::class,'EditeSubCat']);

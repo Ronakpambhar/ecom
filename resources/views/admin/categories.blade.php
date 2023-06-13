@@ -2,7 +2,7 @@
 @section('linkcss')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/extra-libs/multicheck/multicheck.css')}}" />
 <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet" />
-<link rel="stylesheet" href="dist/css/sweetalert2.min.css">
+<link rel="stylesheet" href="{{asset('dist/css/sweetalert2.min.css')}}">
 @endsection
 @section('pagesection')
 <div class="page-wrapper">
@@ -115,8 +115,8 @@
     <script src="{{asset('dist/js/sweetalert2@11.js')}}"></script>
     <script>
     $("#cattbl").DataTable();
-     $(document).ready(function(){
-         $(document).on('click','.editbtn',function(){
+    $(document).ready(function(){
+        $(document).on('click','.editbtn',function(){
             var cat_id = $(this).val();
             $('#editcat').modal('show')
             $.ajax({
@@ -125,10 +125,11 @@
                success:function(response){
                   $('#cat_id').val(cat_id);
                   $('#catname').val(response.bookdata.category_name);
+                  console.log(response.bookdata);
                 }
             });
-         });
-      });
+        });
+    });
 
 
 

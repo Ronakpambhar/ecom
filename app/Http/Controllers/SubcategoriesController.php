@@ -8,17 +8,48 @@ use DB;
 
 class SubcategoriesController extends Controller
 {
+    // GET CATEGORIES
     public function GetSubCat(){
         $subcat = DB::table('subcategories')->join('categories','subcategories.cat_name','=','categories.id')->get();
         $categories = Categories::get();
         return view('admin.subcategries')->with('subcat',$subcat)->with('categories',$categories);
     }
+    // ADD CATEGORIES
     public function AddSub(Request $request){
+
+        $request->validate([
+            'subname'=>'required',
+            'catname'=>'required'
+        ],[
+            'subname' => 'Subname must be required.',
+            'catname' => 'Category must be required.',
+        ]
+        );
         $add = new Subcategories();
         $add->subcategory_name = $request->subname;
         $add->cat_name = $request->catname;
-        if($add->save())
+        if($add->save()){
             return redirect('subcategries');
-        
+        }
+    }
+    // EDITE CAT
+    public function EditeSubCat($id){
+        $data = DB::table('subcategories')->join('categories','subcategories.cat_name','=','categories.id')->where('subcategory_id', $id)->get();
+        // $data = Subcategories::where('subcategory_id',$id);
+        // return dd ($data);
+        return response()->json([
+           'status' =>200,
+           'subcat' =>$data,
+       ]);
+    }
+    // DELETE CATEGORIES
+    public function DelSubCat(Request $request){
+        $id = $request->id;
+        if (isset($id)){
+            $categories = Subcategories::where('subcategory_id',$id);
+            if($categories->delete()){
+                return response()->json([ 'status'=> 'success']);
+            }
+        }
     }
 }

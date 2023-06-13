@@ -7,10 +7,12 @@ use App\Models\Categories;
 
 class CategoryController extends Controller
 {
+    // GET CATEGORIES
     public function GetCat(){
         $categories = categories::get();
         return view('admin.categories')->with('categories', $categories);
     }
+    // ADD CATEGORIES
     public function AddCategory(Request $request){
         $request->validate([
             'categories'=> 'required|min:4',
@@ -26,6 +28,7 @@ class CategoryController extends Controller
             return redirect('categories');
         }
     }
+    // DELETE CATEGORIES
     public function DelCat(Request $request){
         if (isset($request->id)){
             $categories = categories::find($request->id);
@@ -34,13 +37,15 @@ class CategoryController extends Controller
             }
         }
     }
+    // EDITE CATEGORIES
     public function EditeCat($id){
         $cat = categories::find($id);
         return response()->json([
            'status' =>200,
            'bookdata' =>$cat,
        ]);
-   }
+   }    
+    // UPDATE CATEGORIES
    public function Updatecat(Request $request)
    {
         $cat_id = $request->input('cat_id');
@@ -51,5 +56,4 @@ class CategoryController extends Controller
             return redirect('categories');
         }
    }
-
 }

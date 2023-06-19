@@ -34,9 +34,7 @@ class SubcategoriesController extends Controller
     }
     // EDITE CAT
     public function EditeSubCat($id){
-        $data = DB::table('subcategories')->join('categories','subcategories.cat_name','=','categories.id')->where('subcategory_id', $id)->get();
-        // $data = Subcategories::where('subcategory_id',$id);
-        // return dd ($data);
+        $data = DB::table('subcategories')->where('subcategory_id', $id)->get();
         return response()->json([
            'status' =>200,
            'subcat' =>$data,
@@ -51,5 +49,16 @@ class SubcategoriesController extends Controller
                 return response()->json([ 'status'=> 'success']);
             }
         }
+    }
+    public function UpdateSubCat(Request $request){
+        // if(isset($request->subcatid)){
+            $id = $request->subcat_id;
+            $data = Subcategories::where($id);
+            $data->subcategory_name = $request->input('subcatname');
+            $data->cat_name = $request->input('catname');
+            if($data->update()){
+                return redirect('subcategries');
+            }
+        // }
     }
 }

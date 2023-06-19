@@ -94,7 +94,7 @@
     </div>
 </form>
 
-<form method="POST" action="" class="subcatform">
+<form method="POST" action="{{route('updatesubcat')}}" class="subcatform">
     @csrf
     <div class="modal fade" id="editsubcat" tabindex="-1" aria-labelledby="editsubcat" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -105,7 +105,7 @@
                 </div>
                 <div class="modal-body">
                     @csrf
-                    <input type="text" id="cat_id">
+                    <input type="hidden" id="subcat_id" name="subcat_id">
                     <label>Enter subcategorie</label>
                     <input type="text" class="form-control mb-3" id="subcat_name" name="subcatname" value="" placeholder="Enter subcategorie name">
                     <label>Select categorie</label>
@@ -139,7 +139,7 @@
 <script src="{{asset('dist/js/jquery-3.6.4.min.js')}}"></script>
 
 <script>
-        $(document).ready(function(){
+    $(document).ready(function(){
          $(document).on('click','.editbtn',function(){
             var id = $(this).val();
             $('#editsubcat').modal('show')
@@ -147,11 +147,10 @@
                type:"GET",
                url:"/edit/"+id,
                success:function(response){
-                    $('#cat_id').val(response.subcat[0].subcategory_id);
-                    $('#sub_catname').val(response.subcat[0].subcategory_name);
-                    $('#cat_name').val(response.subcat[0].category_name).attr("selected", "selected");
-                    // $('#catname').val(response.bookdata.category_name);
-                    console.log(response.subcat[0]);
+                    $('#subcat_id').val(response.subcat[0].subcategory_id);
+                    $('#subcat_name').val(response.subcat[0].subcategory_name);
+                    // $('#cat_name').val(response.subcat.cat_name).attr("selected", "selected");
+                    $('#cat_name').trigger('change');
                 }
             });
         });

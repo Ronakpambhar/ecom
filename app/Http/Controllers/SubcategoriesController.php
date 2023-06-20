@@ -10,8 +10,8 @@ class SubcategoriesController extends Controller
 {
     // GET CATEGORIES
     public function GetSubCat(){
-        $subcat = DB::table('subcategories')->join('categories','subcategories.cat_name','=','categories.id')->get();
-        $categories = Categories::get();
+        $subcat = DB::table('categories')->join('subcategories','categories.id','subcategories.cat_name')->get();
+         $categories = Categories::get();
         return view('admin.subcategries')->with('subcat',$subcat)->with('categories',$categories);
     }
     // ADD CATEGORIES
@@ -34,7 +34,8 @@ class SubcategoriesController extends Controller
     }
     // EDITE CAT
     public function EditeSubCat($id){
-        $data = DB::table('subcategories')->where('subcategory_id', $id)->get();
+        $data = DB::table('subcategories')->find($id);
+        // $subcat = DB::table('categories')->join('subcategories','categories.id','subcategories.cat_name')->first();
         return response()->json([
            'status' =>200,
            'subcat' =>$data,
@@ -44,7 +45,7 @@ class SubcategoriesController extends Controller
     public function DelSubCat(Request $request){
         $id = $request->id;
         if (isset($id)){
-            $categories = Subcategories::where('subcategory_id',$id);
+            $categories = Subcategories::where('id',$id);
             if($categories->delete()){
                 return response()->json([ 'status'=> 'success']);
             }
@@ -52,10 +53,11 @@ class SubcategoriesController extends Controller
     }
     public function UpdateSubCat(Request $request){
         // if(isset($request->subcatid)){
-            $id = $request->subcat_id;
-            $data = Subcategories::where($id);
-            $data->subcategory_name = $request->input('subcatname');
-            $data->cat_name = $request->input('catname');
+            $id = $request->subcategory_id;
+            $data = Subcategories::find($id);
+            $data->subcategory_name = $request->subcatname;
+            $data->cat_name = $request->catname;
+            // return dd($data->update());
             if($data->update()){
                 return redirect('subcategries');
             }

@@ -42,13 +42,13 @@
                                 @foreach($subcat as $sublist)
                                 <tr>
                                     <td>{{$counter++}}</td>
-                                    <td>{{$sublist->subcategory_id}}</td>
+                                    <td>{{$sublist->id}}</td>
                                     <td>{{$sublist->category_name}}</td>
                                     <td>{{$sublist->subcategory_name}}</td>
                                     <td>
-                                    <button class="btn btn-info px-2 py-1 editbtn" value="{{ $sublist->subcategory_id }}"><i
+                                    <button class="btn btn-info px-2 py-1 editbtn" value="{{ $sublist->id }}"><i
                                                 class="mdi mdi-grease-pencil"></i></button>
-                                        <button data-id="{{$sublist->subcategory_id}}" class="btn btn-danger px-2 py-1 delsubcat"><i
+                                        <button data-id="{{$sublist->id}}" class="btn btn-danger px-2 py-1 delsubcat"><i
                                                 class="mdi mdi-delete"></i></button>
                                     </td>
                                 </tr>
@@ -104,17 +104,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    @csrf
-                    <input type="hidden" id="subcat_id" name="subcat_id">
+                    <input type="hidden" id="id" name="subcategory_id">
                     <label>Enter subcategorie</label>
-                    <input type="text" class="form-control mb-3" id="subcat_name" name="subcatname" value="" placeholder="Enter subcategorie name">
+                    <input type="text" class="form-control mb-3" id="subcat_name" name="subcatname" placeholder="Enter subcategorie name">
                     <label>Select categorie</label>
                     <select class="form-select shadow-none" name="catname" id="cat_name">
                         <option value="0">Select</option>
                         @if(isset($categories))
                         @foreach($categories as $cate)
                         <option value="{{$cate->id}}">{{$cate->category_name}}</option>
-
                         @endforeach
                         @endif
                     </select>
@@ -147,9 +145,9 @@
                type:"GET",
                url:"/edit/"+id,
                success:function(response){
-                    $('#subcat_id').val(response.subcat[0].subcategory_id);
-                    $('#subcat_name').val(response.subcat[0].subcategory_name);
-                    // $('#cat_name').val(response.subcat.cat_name).attr("selected", "selected");
+                    $('#subcat_id').val(response.subcat.id);
+                    $('#subcat_name').val(response.subcat.subcategory_name);
+                    $('#cat_name').val(response.subcat.cat_name).attr("selected", "selected");
                     $('#cat_name').trigger('change');
                 }
             });

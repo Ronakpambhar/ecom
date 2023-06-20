@@ -1,0 +1,17 @@
+$(document).ready(function(){
+         $(document).on('click','.editbtn',function(){
+            var id = $(this).val();
+            $('#editsubcat').modal('show')
+            $.ajax({
+               type:"GET",
+               url:"/edit/"+id,
+               success:function(response){
+                    $('#cat_id').val(response.subcat[0].subcategory_id);
+                    $('#subcat_name').val(response.subcat[0].subcategory_name);
+                    $('#cat_name').val(response.subcat[0].cat_name).attr("selected", "selected");
+                    $('#cat_name').trigger('change');
+                    console.log(response.subcat[0]);
+                }
+            });
+        });
+    });

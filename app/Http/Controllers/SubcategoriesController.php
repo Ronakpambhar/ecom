@@ -10,8 +10,8 @@ class SubcategoriesController extends Controller
 {
     // GET CATEGORIES
     public function GetSubCat(){
-        $subcat = DB::table('categories')->join('subcategories','categories.id','subcategories.cat_name')->get();
-         $categories = Categories::get();
+        $subcat = DB::table('categories')->join('subcategories','categories.id','=','subcategories.cat_name')->get();
+        $categories = categories::get();
         return view('admin.subcategries')->with('subcat',$subcat)->with('categories',$categories);
     }
     // ADD CATEGORIES
@@ -34,8 +34,9 @@ class SubcategoriesController extends Controller
     }
     // EDITE CAT
     public function EditeSubCat($id){
-        $data = DB::table('subcategories')->find($id);
-        // $subcat = DB::table('categories')->join('subcategories','categories.id','subcategories.cat_name')->first();
+        // $data = DB::table('subcategories')->join('categories','subcategories.cat_name','=','categories.id')->where('id', $id)->get();
+        $data = Subcategories::find($id);
+        // return dd ($data);
         return response()->json([
            'status' =>200,
            'subcat' =>$data,
@@ -45,22 +46,20 @@ class SubcategoriesController extends Controller
     public function DelSubCat(Request $request){
         $id = $request->id;
         if (isset($id)){
-            $categories = Subcategories::where('id',$id);
+            $categories = Subcategories::find($id);
             if($categories->delete()){
                 return response()->json([ 'status'=> 'success']);
             }
         }
     }
+
     public function UpdateSubCat(Request $request){
-        // if(isset($request->subcatid)){
-            $id = $request->subcategory_id;
+            $id = $request->subcat_id;
             $data = Subcategories::find($id);
             $data->subcategory_name = $request->subcatname;
-            $data->cat_name = $request->catname;
-            // return dd($data->update());
+            $data->cat_name = $request->cat_name;
             if($data->update()){
                 return redirect('subcategries');
             }
-        // }
     }
 }

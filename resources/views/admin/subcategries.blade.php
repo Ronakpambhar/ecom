@@ -104,19 +104,19 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="id" name="subcategory_id">
+                    <input type="hidden" id="cat_id" name="subcat_id">
                     <label>Enter subcategorie</label>
-                    <input type="text" class="form-control mb-3" id="subcat_name" name="subcatname" placeholder="Enter subcategorie name">
+                    <input type="text" class="form-control mb-3" id="sub_catname" name="subcatname" placeholder="Enter subcategorie name">
                     <label>Select categorie</label>
-                    <select class="form-select shadow-none" name="catname" id="cat_name">
+                    <select class="form-select shadow-none" name="cat_name" id="category_name">
                         <option value="0">Select</option>
                         @if(isset($categories))
                         @foreach($categories as $cate)
                         <option value="{{$cate->id}}">{{$cate->category_name}}</option>
+
                         @endforeach
                         @endif
                     </select>
-                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -133,11 +133,11 @@
 <script src="{{asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
 <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
 <script src="{{asset('dist/js/sweetalert2@11.js')}}"></script>
-<script src="{{asset('dist/js/jquery.validate.js')}}"></script>
-<script src="{{asset('dist/js/jquery-3.6.4.min.js')}}"></script>
+<!-- <script src="{{asset('dist/js/jquery.validate.js')}}"></script> -->
+<!-- <script src="{{asset('dist/js/jquery-3.6.4.min.js')}}"></script> -->
 
 <script>
-    $(document).ready(function(){
+        $(document).ready(function(){
          $(document).on('click','.editbtn',function(){
             var id = $(this).val();
             $('#editsubcat').modal('show')
@@ -145,10 +145,11 @@
                type:"GET",
                url:"/edit/"+id,
                success:function(response){
-                    $('#subcat_id').val(response.subcat.id);
-                    $('#subcat_name').val(response.subcat.subcategory_name);
-                    $('#cat_name').val(response.subcat.cat_name).attr("selected", "selected");
-                    $('#cat_name').trigger('change');
+                    $('#cat_id').val(response.subcat.id);
+                    $('#sub_catname').val(response.subcat.subcategory_name);
+                    $('#category_name').val(response.subcat.cat_name).attr("selected", "selected");
+                    $('#category_name').trigger('change');
+                    console.log(response.subcat);
                 }
             });
         });
@@ -182,7 +183,7 @@
     $(document).on('click', '.delsubcat', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
-    // alert( id );
+    alert( id );
     Swal.fire({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",

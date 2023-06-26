@@ -5,7 +5,46 @@
 @endsection
 @section('pagesection')
 <div class="page-wrapper">
-    <!-- Bread crumb and right sidebar toggle -->
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-12">
+                <form action="{{route('addproductform')}}" method="POST"enctype="multipart/form-data">
+                    <div class="row g-4">
+                        <div class="col-4">
+                            <label>Enter Product Name</label>
+                            <input type="text" class="form-control mb-3"name="p_name" placeholder="Enter product name">
+                        </div>
+                        <div class="col-4">
+                            <label>Enter Product Price</label>
+                            <input type="text" class="form-control mb-3"name="p_name" placeholder="Enter product price">
+                        </div>
+                        <div class="col-4">
+                            <label>Select categorie</label>
+                            <select class="form-select shadow-none" name="category">
+                                <option value="0">Select</option>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label>Select categorie</label>
+                            <textarea name="description" class="form-control" id="" cols="30" rows="4"></textarea>
+                        </div>
+                        <div class="col-4">
+                            <label>Upload product thumb</label>
+                            <input type="file" name="thumb" placeholder="upload thumb">
+                        </div>
+                        <div class="col-4">
+                            <label>Upload product images</label>
+                            <input type="file" name="pimg[]" placeholder="upload" multiple>
+                        </div>
+                        <div class="col-4">
+                        <button type="submit" class="btn btn-info">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 @section('linkjs')

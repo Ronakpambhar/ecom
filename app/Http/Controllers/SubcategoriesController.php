@@ -10,9 +10,11 @@ class SubcategoriesController extends Controller
 {
     // GET CATEGORIES
     public function GetSubCat(){
-        $subcat = DB::table('categories')->join('subcategories','categories.id','=','subcategories.cat_name')->get();
-        $categories = categories::get();
-        return view('admin.subcategries')->with('subcat',$subcat)->with('categories',$categories);
+
+        $subCategory = Subcategories::with('getCategory')->get();
+        $categoryList = Categories::select('id','category_name')->get();
+        return view('admin.subcategries')->with('subCategory',$subCategory)->with('categoryList',$categoryList);
+
     }
     // ADD CATEGORIES
     public function AddSub(Request $request){

@@ -30,21 +30,26 @@
                             <thead>
                                 <tr>
                                     <th class="fw-bold">Sr No</th>
-                                    <th class="fw-bold">Id</th>
+                                    <!-- <th class="fw-bold">Id</th> -->
                                     <th class="fw-bold">Categories</th>
                                     <th class="fw-bold">Sub Categories</th>
+                                    <th class="fw-bold">Create Date</th>
+                                    <th class="fw-bold">Create Time</th>
                                     <th class="fw-bold">action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $counter=1; ?>
-                                @if(isset($subcat))
-                                @foreach($subcat as $sublist)
+                                @if(isset($subCategory))
+                                @foreach($subCategory as $sublist)
                                 <tr>
                                     <td>{{$counter++}}</td>
-                                    <td>{{$sublist->id}}</td>
-                                    <td>{{$sublist->category_name}}</td>
+                                    <!-- <td>{{$sublist->id}}</td> -->
+                                    <td>{{$sublist->getCategory->category_name}}</td>
                                     <td>{{$sublist->subcategory_name}}</td>
+                                    <td><?php echo date('d-m-Y',strtotime($sublist->created_at)); ?></td>
+                                    <td><?php echo date('h:i A',strtotime($sublist->created_at)); ?></td>
+
                                     <td>
                                     <button class="btn btn-info px-2 py-1 editbtn" value="{{ $sublist->id }}"><i
                                                 class="mdi mdi-grease-pencil"></i></button>
@@ -77,9 +82,10 @@
                     <label>Select categorie</label>
                     <select class="form-select shadow-none" name="catname" id="catname">
                         <option value="0">Select</option>
-                        @if(isset($categories))
-                        @foreach($categories as $cate)
-                        <option value="{{$cate->id}}">{{$cate->category_name}}</option>
+                         @if(isset($categoryList))
+
+                            @foreach($categoryList as $catlist)
+                        <option value="{{$catlist->id}}">{{$catlist->category_name}}</option>
                         @endforeach
                         @endif
                     </select>
@@ -110,10 +116,9 @@
                     <label>Select categorie</label>
                     <select class="form-select shadow-none" name="cat_name" id="category_name">
                         <option value="0">Select</option>
-                        @if(isset($categories))
-                        @foreach($categories as $cate)
-                        <option value="{{$cate->id}}">{{$cate->category_name}}</option>
-
+                        @if(isset($categoryList))
+                        @foreach($categoryList as $catlist)
+                        <option value="{{$catlist->id}}">{{$catlist->category_name}}</option>
                         @endforeach
                         @endif
                     </select>
